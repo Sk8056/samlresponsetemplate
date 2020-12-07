@@ -1,13 +1,26 @@
 package com.template;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class BaseTemplate {
 
+	@Value("${endpoint.destination}")
+	private String endpointDestination;
+
+	@Value("${endpoint.destination}")
+	private String endpointIssuer;
+
+	@Value("${endpoint.nameId}")
+	private String endpointNameId;
+
+	@Value("${endpoint.audience}")
+	private String endpointAudience;
+
 	private final String data = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-			+ "<samlp:Response xmlns:samlp=\"urn:oasis:names:tc:SAML:2.0:protocol\" xmlns:saml=\"urn:oasis:names:tc:SAML:2.0:assertion\" ID=\"_57cbe119-04cd-46f5-852a-b5e8073d2483\" Version=\"2.0\" IssueInstant=\"2020-11-13T18:15:25.601Z\" Destination=\"https://keycloak.spectrumtoolbox.com/auth/realms/spectrumenterprise/broker/se-local/endpoint\" InResponseTo=\"null\">\n"
-			+ "   <saml:Issuer>https://cx-idp.enterprise.spectrumtoolbox.com/saml/idp</saml:Issuer>\n"
+			+ "<samlp:Response xmlns:samlp=\"urn:oasis:names:tc:SAML:2.0:protocol\" xmlns:saml=\"urn:oasis:names:tc:SAML:2.0:assertion\" ID=\"_57cbe119-04cd-46f5-852a-b5e8073d2483\" Version=\"2.0\" IssueInstant=\"2020-11-13T18:15:25.601Z\" Destination=%sInResponseTo=\"null\">\n"
+			+ "   <saml:Issuer>\"%s\"</saml:Issuer>\n"
 			+ "   <ds:Signature xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\">\n" + "      <ds:SignedInfo>\n"
 			+ "         <ds:CanonicalizationMethod Algorithm=\"http://www.w3.org/2001/10/xml-exc-c14n#\" />\n"
 			+ "         <ds:SignatureMethod Algorithm=\"http://www.w3.org/2000/09/xmldsig#rsa-sha1\" />\n"
@@ -26,15 +39,13 @@ public class BaseTemplate {
 			+ "      <samlp:StatusCode Value=\"urn:oasis:names:tc:SAML:2.0:status:Success\" />\n"
 			+ "   </samlp:Status>\n"
 			+ "   <saml:Assertion xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" ID=\"_c02cc6a3-70aa-4749-b133-6b9d38531106\" Version=\"2.0\" IssueInstant=\"2020-11-13T18:15:25.601Z\">\n"
-			+ "      <saml:Issuer>https://cx-idp.enterprise.spectrumtoolbox.com/saml/idp</saml:Issuer>\n"
-			+ "      <saml:Subject>\n"
-			+ "         <saml:NameID Format=\"urn:oasis:names:tc:SAML:1.1:nameid-format:persistent\">fetestsso@dispostable.com</saml:NameID>\n"
+			+ "      <saml:Issuer>\"%s\"</saml:Issuer>\n" + "      <saml:Subject>\n"
+			+ "         <saml:NameID Format=\"%s\">%s</saml:NameID>\n"
 			+ "         <saml:SubjectConfirmation Method=\"urn:oasis:names:tc:SAML:2.0:cm:bearer\">\n"
 			+ "            <saml:SubjectConfirmationData NotOnOrAfter=\"2020-11-13T18:20:25.601Z\" Recipient=\"https://keycloak.spectrumtoolbox.com/auth/realms/spectrumenterprise/broker/se-local/endpoint\" InResponseTo=\"null\" />\n"
 			+ "         </saml:SubjectConfirmation>\n" + "      </saml:Subject>\n"
 			+ "      <saml:Conditions NotBefore=\"2020-11-13T18:15:25.601Z\" NotOnOrAfter=\"2020-11-13T18:20:25.601Z\">\n"
-			+ "         <saml:AudienceRestriction>\n"
-			+ "            <saml:Audience>https://keycloak.spectrumtoolbox.com/auth/realms/spectrumenterprise</saml:Audience>\n"
+			+ "         <saml:AudienceRestriction>\n" + "            <saml:Audience>\"%s\"</saml:Audience>\n"
 			+ "         </saml:AudienceRestriction>\n" + "      </saml:Conditions>\n"
 			+ "      <saml:AuthnStatement AuthnInstant=\"2020-11-13T18:15:25.601Z\" SessionNotOnOrAfter=\"2020-11-13T18:20:25.601Z\" SessionIndex=\"267ef501-f6ac-49db-84bb-2ce4ba8dacb2\">\n"
 			+ "         <saml:AuthnContext>\n"
@@ -61,6 +72,38 @@ public class BaseTemplate {
 
 	public String getData() {
 		return data;
+	}
+
+	public String getEndpointIssuer() {
+		return endpointIssuer;
+	}
+
+	public void setEndpointIssuer(String endpointIssuer) {
+		this.endpointIssuer = endpointIssuer;
+	}
+
+	public String getEndpointNameId() {
+		return endpointNameId;
+	}
+
+	public void setEndpointNameId(String endpointNameId) {
+		this.endpointNameId = endpointNameId;
+	}
+
+	public String getEndpointAudience() {
+		return endpointAudience;
+	}
+
+	public void setEndpointAudience(String endpointAudience) {
+		this.endpointAudience = endpointAudience;
+	}
+
+	public String getEndpointDestination() {
+		return endpointDestination;
+	}
+
+	public void setEndpointDestination(String endpointDestination) {
+		this.endpointDestination = endpointDestination;
 	}
 
 	@Override
